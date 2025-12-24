@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSAR - Презентация</title>
+    <style>
+        /* ========== КИБЕРПАНК-БАЗА ========== */
+        :root {
+            --cyber-purple: #6b46c1;
+            --cyber-pink: #ec4899;
+            --cyber-blue: #3b82f6;
+            --cyber-cyan: #06b6d4;
+            --cyber-dark: #0f0c29;
+            --cyber-deep: #1e1b4b;
+            --cyber-light: #a5b4fc;
+            --neon-glow: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: radial-gradient(ellipse at center, var(--cyber-dark) 0%, var(--cyber-deep) 50%, #24243e 100%);
+            color: var(--cyber-light);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Живой фон с частицами */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Контейнер слайдов */
+        .slides-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.4), inset 0 0 30px rgba(192, 132, 252, 0.2);
+            animation: slideGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes slideGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(192, 132, 252, 0.6); }
+        }
+
+        /* Верхний колонтитул */
+        .header-info {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-info:hover {
+            opacity: 1;
+        }
+
+        .company-name {
+            font-size: 0.9rem;
+            color: var(--cyber-light);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .date-info {
+            font-size: 0.8rem;
+            color: var(--cyber-cyan);
+            margin-top: 5px;
+        }
+
+        /* Нижний колонтитул */
+        .footer-info {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-info:hover {
+            opacity: 1;
+        }
+
+        /* Заголовки */
+        .slide h1, .slide h2 {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #60a5fa, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 5px #60a5fa, 0 0 10px #c084fc; }
+            20% { text-shadow: -2px 0 #f472b6, 2px 0 #60a5fa; }
+            40% { text-shadow: 2px 0 #c084fc, -2px 0 #f472b6; }
+            60% { text-shadow: 0 0 10px #f472b6, 0 0 20px #c084fc; }
+        }
+
+        /* Слайд 1: Зарождение истоков */
+        .slide-1-title {
+            font-size: clamp(4rem, 10vw, 8rem);
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            animation: titleFloat 6s ease-in-out infinite;
+            letter-spacing: -3px;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
+        }
+
+        .slide-1-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Слайд 2: К чему это привело */
+        .slide-2-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .qr-container {
+            text-align: center;
+            animation: qrPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes qrPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .qr-code {
+            width: 300px;
+            height: 300px;
+            background: var(--cyber-dark);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(96, 165, 250, 0.6);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--cyber-blue);
+            animation: qrGlow 3s infinite;
+        }
+
+        @keyframes qrGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(96, 165, 250, 0.6); }
+            50% { box-shadow: 0 0 50px rgba(192, 132, 252, 0.9); }
+        }
+
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            animation: qrScan 3s linear infinite;
+        }
+
+        @keyframes qrScan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px #60a5fa);
+        }
+
+        /* Слайд 3: Проблемы */
+        .slide-3-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 80px;
+            color: #f472b6;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .problem-card {
+            background: rgba(30, 27, 75, 0.9);
+            border-radius: 30px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 3px solid transparent;
+            transform: translateY(0);
+            animation: cardPulse 3s infinite;
+        }
+
+        @keyframes cardPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.6); }
+        }
+
+        .problem-card:hover {
+            border-color: #f472b6;
+            box-shadow: 0 30px 60px rgba(244, 114, 182, 0.4);
+            transform: translateY(-15px) scale(1.02);
+        }
+
+        .problem-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(244, 114, 182, 0.5));
+            animation: iconFlicker 1.5s infinite;
+        }
+
+        .problem-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f472b6;
+        }
+
+        /* Слайд 4: Pulsar Ecosystem */
+        .slide-4-title {
+            font-size: clamp(4rem, 10vw, 8rem);
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: -3px;
+        }
+
+        .slide-4-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center;
+            color: var(--cyber-light);
+            margin-bottom: 50px;
+        }
+
+        .slogan {
+            font-size: 2rem;
+            text-align: center;
+            color: var(--cyber-cyan);
+            font-weight: 500;
+            font-style: italic;
+            position: relative;
+            padding: 30px 50px;
+            background: rgba(30, 27, 75, 0.8);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
+            border: 2px solid rgba(192, 132, 252, 0.5);
+            animation: sloganPulse 4s infinite;
+        }
+
+        @keyframes sloganPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(192, 132, 252, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(244, 114, 182, 0.7); }
+        }
+
+        .slogan::before,
+        .slogan::after {
+            content: '"';
+            position: absolute;
+            font-size: 4rem;
+            color: var(--cyber-cyan);
+            opacity: 0.4;
+        }
+
+        .slogan::before {
+            top: -10px;
+            left: 30px;
+        }
+
+        .slogan::after {
+            bottom: -30px;
+            right: 30px;
+        }
+
+        /* Слайд 5: Почему полезен */
+        .slide-5-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .benefits-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 50px 40px;
+            background: rgba(30, 27, 75, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+            transition: all 0.4s ease;
+            flex: 1;
+            max-width: 350px;
+            border: 2px solid transparent;
+            animation: benefitPulse 3s infinite;
+        }
+
+        @keyframes benefitPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(5, 150, 105, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(5, 150, 105, 0.6); }
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-20px) scale(1.05);
+            border-color: #10b981;
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.7);
+        }
+
+        .benefit-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            display: block;
+            filter: drop-shadow(0 15px 25px rgba(16, 185, 129, 0.5));
+            animation: iconFlicker 1.5s infinite;
+        }
+
+        .benefit-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #10b981;
+        }
+
+        /* Слайд 6: 6 принципов */
+        .slide-6-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .principles-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            height: 400px;
+        }
+
+        .principle-card {
+            background: rgba(30, 27, 75, 0.9);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: principlePulse 3s infinite;
+        }
+
+        @keyframes principlePulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(192, 132, 252, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .principle-card:hover::before {
+            opacity: 1;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #8b5cf6;
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.7);
+        }
+
+        .principle-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #8b5cf6;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            animation: numberFlicker 1.5s infinite;
+        }
+
+        @keyframes numberFlicker {
+            0%, 100% { opacity: 1; }
+            90% { opacity: 1; }
+            95% { opacity: 0.6; }
+            97% { opacity: 1; }
+            99% { opacity: 0.3; }
+        }
+
+        .principle-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cyber-light);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Слайд 7: 3 цели */
+        .slide-7-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .goals-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .goal-item {
+            background: rgba(30, 27, 75, 0.9);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: all 0.4s ease;
+            border-left: 5px solid #ea580c;
+            animation: goalPulse 3s infinite;
+        }
+
+        @keyframes goalPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(234, 88, 12, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(234, 88, 12, 0.6); }
+        }
+
+        .goal-item:hover {
+            transform: translateX(15px);
+            box-shadow: 0 0 50px rgba(234, 88, 12, 0.7);
+        }
+
+        .goal-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 10px 20px rgba(234, 88, 12, 0.5));
+            animation: iconFlicker 1.5s infinite;
+        }
+
+        .goal-content h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 10px;
+        }
+
+        /* Слайд 8: СУПЕР-РОАДМАП */
+        .slide-8-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #60a5fa, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlitch 3s infinite;
+        }
+
+        @keyframes titleGlitch {
+            0%, 100% { 
+                transform: translateX(0) skewX(0);
+                filter: hue-rotate(0deg);
+            }
+            20% { 
+                transform: translateX(-2px) skewX(-2deg);
+                filter: hue-rotate(10deg);
+            }
+            40% { 
+                transform: translateX(2px) skewX(2deg);
+                filter: hue-rotate(-10deg);
+            }
+            60% { 
+                transform: translateX(-1px) skewX(1deg);
+                filter: hue-rotate(5deg);
+            }
+            80% { 
+                transform: translateX(1px) skewX(-1deg);
+                filter: hue-rotate(-5deg);
+            }
+        }
+
+        .cyber-roadmap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cyber-point {
+            text-align: center;
+            position: relative;
+            flex: 1;
+            perspective: 1000px;
+        }
+
+        .cyber-marker {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: cyberFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes cyberFloat {
+            0%, 100% { 
+                transform: translateY(0) rotateX(0deg) rotateY(0deg);
+            }
+            25% { 
+                transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            }
+            75% { 
+                transform: translateY(10px) rotateX(-5deg) rotateY(-5deg);
+            }
+        }
+
+        .cyber-core {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #60a5fa, #c084fc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.8rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 20px rgba(96, 165, 250, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .cyber-core::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent,
+                rgba(192, 132, 252, 0.5),
+                transparent,
+                rgba(96, 165, 250, 0.5),
+                transparent
+            );
+            animation: cyberRotate 3s linear infinite;
+        }
+
+        @keyframes cyberRotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .cyber-content {
+            background: rgba(30, 27, 75, 0.9);
+            border: 2px solid rgba(192, 132, 252, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: cyberGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes cyberGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+                border-color: rgba(192, 132, 252, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(192, 132, 252, 0.6);
+                border-color: rgba(192, 132, 252, 0.8);
+            }
+        }
+
+        .cyber-date {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: textFlicker 2s infinite;
+        }
+
+        @keyframes textFlicker {
+            0%, 100% { opacity: 1; }
+            90% { opacity: 1; }
+            95% { opacity: 0.8; }
+            97% { opacity: 1; }
+            99% { opacity: 0.6; }
+        }
+
+        .cyber-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f472b6;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cyber-desc {
+            color: #a5b4fc;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cyber-beam {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #60a5fa, transparent);
+            animation: beamPulse 2s infinite;
+        }
+
+        @keyframes beamPulse {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scaleX(0.8);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scaleX(1.2);
+            }
+        }
+
+        .cyber-orbit {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(192, 132, 252, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbitRotate 8s linear infinite;
+        }
+
+        @keyframes orbitRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #60a5fa;
+            border-radius: 50%;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: orbitGlow 1s infinite;
+        }
+
+        @keyframes orbitGlow {
+            0%, 100% { 
+                box-shadow: 0 0 5px #60a5fa;
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 15px #60a5fa;
+                transform: translateX(-50%) scale(1.5);
+            }
+        }
+
+        /* Слайд 9: Риски */
+        .slide-9-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .risks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .risk-card {
+            background: rgba(30, 27, 75, 0.9);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+            border-top: 4px solid #ec4899;
+            transition: all 0.4s ease;
+            animation: riskPulse 3s infinite;
+        }
+
+        @keyframes riskPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); }
+        }
+
+        .risk-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 50px rgba(236, 72, 153, 0.7);
+        }
+
+        .risk-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(236, 72, 153, 0.5));
+            animation: iconFlicker 1.5s infinite;
+        }
+
+        .risk-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ec4899;
+            margin-bottom: 15px;
+        }
+
+        /* Слайд 10: Заключение */
+        .slide-10-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.2;
+        }
+
+        .slide-10-subtitle {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0.9;
+            max-width: 900px;
+            line-height: 1.5;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Клавиши навигации */
+        .nav-hint {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: var(--cyber-light);
+            font-size: 0.8rem;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-hint:hover {
+            opacity: 0.7;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .cyber-roadmap {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .cyber-beam {
+                display: none;
+            }
+            
+            .cyber-point {
+                margin-bottom: 30px;
+            }
+            
+            .principles-showcase {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, auto);
+                height: auto;
+                gap: 30px;
+            }
+            
+            .problems-grid,
+            .risks-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .benefits-showcase {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 80px 20px;
+            }
+            
+            .principles-showcase {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, auto);
+            }
+            
+            .problems-grid,
+            .risks-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .slide-1-title,
+            .slide-2-title,
+            .slide-3-title,
+            .slide-4-title,
+            .slide-5-title,
+            .slide-6-title,
+            .slide-7-title,
+            .slide-8-title,
+            .slide-9-title,
+            .slide-10-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+            
+            .slogan {
+                font-size: 1.5rem;
+                padding: 20px 30px;
+            }
+            
+            .cyber-marker {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .cyber-core {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Скрытие UI при бездействии */
+        .hide-ui .header-info,
+        .hide-ui .footer-info,
+        .hide-ui .nav-hint {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Живой фон с частицами -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Подсказка навигации -->
+    <div class="nav-hint">← → или свайпы</div>
+
+    <!-- Верхний колонтитул -->
+    <div class="header-info">
+        <div class="company-name">Pulsar Security Company</div>
+        <div class="date-info">25 December 2025</div>
+    </div>
+
+    <!-- Нижний колонтитул -->
+    <div class="footer-info">
+        <div class="company-name">Pulsar Security Company</div>
+        <div class="date-info">25 December 2025</div>
+    </div>
+
+    <!-- Контейнер слайдов -->
+    <div class="slides-container" id="slidesContainer">
+        <!-- Слайд 1: Зарождение истоков -->
+        <section class="slide slide-1" data-slide="1">
+            <h1 class="slide-1-title fade-in visible">Зарождение<br>истоков</h1>
+            <p class="slide-1-subtitle fade-in visible">Начало новой эры кибербезопасности</p>
+        </section>
+
+        <!-- Слайд 2: К чему это привело -->
+        <section class="slide slide-2" data-slide="2">
+            <h2 class="slide-2-title fade-in">К чему это привело</h2>
+            <div class="qr-container fade-in">
+                <div class="qr-code">
+                    <img src="qr-code.gif" alt="QR Code">
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 3: Проблемы -->
+        <section class="slide slide-3" data-slide="3">
+            <h2 class="slide-3-title fade-in">Проблемы</h2>
+            <div class="problems-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">🔒</div>
+                    <h3 class="problem-title">Сложность интеграции</h3>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">💸</div>
+                    <h3 class="problem-title">Высокая стоимость</h3>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">🧩</div>
+                    <h3 class="problem-title">Разрозненность</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 4: Pulsar Ecosystem -->
+        <section class="slide slide-4" data-slide="4">
+            <h1 class="slide-4-title fade-in">Pulsar Ecosystem</h1>
+            <p class="slide-4-subtitle fade-in">Инновационная платформа кибербезопасности</p>
+            <div class="slogan fade-in">
+                Твой цифровой инстинкт самосохранения
+            </div>
+        </section>
+
+        <!-- Слайд 5: Почему полезен -->
+        <section class="slide slide-5" data-slide="5">
+            <h2 class="slide-5-title fade-in">Почему Pulsar действительно полезен?</h2>
+            <div class="benefits-showcase">
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">Мгновенная защита</h3>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Точечные решения</h3>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🤝</div>
+                    <h3 class="benefit-title">Простота использования</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 6: 6 принципов -->
+        <section class="slide slide-6" data-slide="6">
+            <h2 class="slide-6-title fade-in">6 принципов Pulsar</h2>
+            <div class="principles-showcase">
+                <div class="principle-card fade-in">
+                    <div class="principle-number">1</div>
+                    <h3 class="principle-name">Простота</h3>
+                </div>
+                <div class="principle-card fade-in">
+                    <div class="principle-number">2</div>
+                    <h3 class="principle-name">Автоматизация</h3>
+                </div>
+                <div class="principle-card fade-in">
+                    <div class="principle-number">3</div>
+                    <h3 class="principle-name">Понятность</h3>
+                </div>
+                <div class="principle-card fade-in">
+                    <div class="principle-number">4</div>
+                    <h3 class="principle-name">Централизация</h3>
+                </div>
+                <div class="principle-card fade-in">
+                    <div class="principle-number">5</div>
+                    <h3 class="principle-name">Приватность</h3>
+                </div>
+                <div class="principle-card fade-in">
+                    <div class="principle-number">6</div>
+                    <h3 class="principle-name">Расширяемость</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 7: 3 цели -->
+        <section class="slide slide-7" data-slide="7">
+            <h2 class="slide-7-title fade-in">3 цели продукта</h2>
+            <div class="goals-showcase">
+                <div class="goal-item fade-in">
+                    <div class="goal-icon">🌟</div>
+                    <div class="goal-content">
+                        <h3>Сделать безопасность доступной</h3>
+                    </div>
+                </div>
+                <div class="goal-item fade-in">
+                    <div class="goal-icon">⚙️</div>
+                    <div class="goal-content">
+                        <h3>Автоматизировать рутину</h3>
+                    </div>
+                </div>
+                <div class="goal-item fade-in">
+                    <div class="goal-icon">🔗</div>
+                    <div class="goal-content">
+                        <h3>Сделать единую экосистему</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 8: СУПЕР-РОАДМАП -->
+        <section class="slide slide-8" data-slide="8">
+            <h2 class="slide-8-title fade-in">Роадмап: Путь к успеху</h2>
+            <div class="cyber-roadmap">
+                <div class="cyber-orbit">
+                    <div class="orbit-dot"></div>
+                </div>
+                
+                <div class="cyber-point fade-in">
+                    <div class="cyber-marker">
+                        <div class="cyber-core">1</div>
+                    </div>
+                    <div class="cyber-content">
+                        <div class="cyber-date">Сентябрь 2025</div>
+                        <div class="cyber-title">Начало</div>
+                        <div class="cyber-desc">Старт проекта</div>
+                    </div>
+                    <div class="cyber-beam"></div>
+                </div>
+                
+                <div class="cyber-point fade-in">
+                    <div class="cyber-marker">
+                        <div class="cyber-core">2</div>
+                    </div>
+                    <div class="cyber-content">
+                        <div class="cyber-date">Октябрь 2025</div>
+                        <div class="cyber-title">А надо ли</div>
+                        <div class="cyber-desc">Анализ рынка</div>
+                    </div>
+                    <div class="cyber-beam"></div>
+                </div>
+                
+                <div class="cyber-point fade-in">
+                    <div class="cyber-marker">
+                        <div class="cyber-core">3</div>
+                    </div>
+                    <div class="cyber-content">
+                        <div class="cyber-date">Ноябрь 2025</div>
+                        <div class="cyber-title">Первые шаги</div>
+                        <div class="cyber-desc">Реализация</div>
+                    </div>
+                    <div class="cyber-beam"></div>
+                </div>
+                
+                <div class="cyber-point fade-in">
+                    <div class="cyber-marker">
+                        <div class="cyber-core">4</div>
+                    </div>
+                    <div class="cyber-content">
+                        <div class="cyber-date">Декабрь 2025</div>
+                        <div class="cyber-title">Что дальше...</div>
+                        <div class="cyber-desc">Будущее</div>
+                    </div>
+                </div>
+                
+                <div class="cyber-orbit" style="width: 200px; height: 200px; animation-delay: -2s;">
+                    <div class="orbit-dot" style="animation-delay: -1s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 9: Риски -->
+        <section class="slide slide-9" data-slide="9">
+            <h2 class="slide-9-title fade-in">4 возможных риска</h2>
+            <div class="risks-grid">
+                <div class="risk-card fade-in">
+                    <div class="risk-icon">⚠️</div>
+                    <h3 class="risk-title">Технические сложности</h3>
+                </div>
+                <div class="risk-card fade-in">
+                    <div class="risk-icon">💰</div>
+                    <h3 class="risk-title">Финансовые ограничения</h3>
+                </div>
+                <div class="risk-card fade-in">
+                    <div class="risk-icon">🎯</div>
+                    <h3 class="risk-title">Конкуренция на рынке</h3>
+                </div>
+                <div class="risk-card fade-in">
+                    <div class="risk-icon">⚡</div>
+                    <h3 class="risk-title">Быстрое развитие угроз</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 10: Заключение -->
+        <section class="slide slide-10" data-slide="10">
+            <h2 class="slide-10-title fade-in">Есть ли свет в неизведанном?</h2>
+            <p class="slide-10-subtitle fade-in">
+                Будьте готовы к любым переменам и умейте адаптироваться к ним. 
+                Pulsar поможет вам в этом, обеспечивая надежную защиту в любых условиях.
+            </p>
+        </section>
+    </div>
+
+    <script>
+        // Система частиц для живого фона
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particles-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.particleCount = 80;
+                this.connectionDistance = 200;
+                
+                this.resize();
+                this.init();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                for (let i = 0; i < this.particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2,
+                        radius: Math.random() * 5 + 3,
+                        color: `hsl(${Math.random() * 60 + 240}, 80%, 70%)`,
+                        opacity: Math.random() * 0.7 + 0.3,
+                        pulse: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach((particle, i) => {
+                    // Пульсация размера
+                    particle.pulse += 0.02;
+                    const pulseSize = Math.sin(particle.pulse) * 2;
+                    
+                    // Движение
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Отскок от границ
+                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+                    
+                    // Рисование частицы с пульсацией
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.radius + pulseSize, 0, Math.PI * 2);
+                    this.ctx.fillStyle = particle.color;
+                    this.ctx.globalAlpha = particle.opacity;
+                    this.ctx.fill();
+                    
+                    // Световой эффект
+                    this.ctx.shadowBlur = 15;
+                    this.ctx.shadowColor = particle.color;
+                    this.ctx.fill();
+                    this.ctx.shadowBlur = 0;
+                    
+                    // Соединения между частицами
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const distance = Math.sqrt(
+                            Math.pow(particle.x - this.particles[j].x, 2) +
+                            Math.pow(particle.y - this.particles[j].y, 2)
+                        );
+                        
+                        if (distance < this.connectionDistance) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(particle.x, particle.y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.strokeStyle = particle.color;
+                            this.ctx.globalAlpha = (1 - distance / this.connectionDistance) * 0.6;
+                            this.ctx.lineWidth = 2;
+                            this.ctx.stroke();
+                        }
+                    }
+                });
+                
+                this.ctx.globalAlpha = 1;
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Презентационная система
+        class PulsarPresentation {
+            constructor() {
+                this.currentSlide = 1;
+                this.totalSlides = 10;
+                this.slidesContainer = document.getElementById('slidesContainer');
+                this.particleSystem = new ParticleSystem();
+                
+                this.init();
+            }
+
+            init() {
+                this.setupNavigation();
+                this.setupKeyboardControls();
+                this.setupTouchControls();
+                this.setupAutoHide();
+                this.setupFirstSlide();
+                this.setupSpecialEffects();
+                this.updateSlide();
+            }
+
+            setupFirstSlide() {
+                const firstSlide = document.querySelector('[data-slide="1"]');
+                if (firstSlide) {
+                    const elements = firstSlide.querySelectorAll('.fade-in');
+                    elements.forEach(el => {
+                        el.classList.add('visible');
+                    });
+                }
+            }
+
+            setupNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowLeft':
+                        case 'a':
+                        case 'A':
+                            this.prevSlide();
+                            break;
+                        case 'ArrowRight':
+                        case 'd':
+                        case 'D':
+                            this.nextSlide();
+                            break;
+                        case 'Escape':
+                            this.showUI();
+                            break;
+                        case 'h':
+                        case 'H':
+                            this.toggleUI();
+                            break;
+                    }
+                });
+            }
+
+            setupTouchControls() {
+                let startX = 0;
+                
+                document.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                document.addEventListener('touchend', (e) => {
+                    const endX = e.changedTouches[0].clientX;
+                    const diff = startX - endX;
+                    
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    }
+                });
+            }
+
+            setupAutoHide() {
+                let hideTimer;
+                
+                const resetTimer = () => {
+                    clearTimeout(hideTimer);
+                    this.showUI();
+                    hideTimer = setTimeout(() => {
+                        this.hideUI();
+                    }, 4000);
+                };
+                
+                document.addEventListener('mousemove', resetTimer);
+                document.addEventListener('keydown', resetTimer);
+                document.addEventListener('touchstart', resetTimer);
+                
+                resetTimer();
+            }
+
+            setupSpecialEffects() {
+                const cyberMarkers = document.querySelectorAll('.cyber-marker');
+                cyberMarkers.forEach((marker, index) => {
+                    marker.addEventListener('mouseenter', () => {
+                        marker.style.transform = 'translateY(-15px) scale(1.2) rotateY(360deg)';
+                        marker.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                    });
+                    
+                    marker.addEventListener('mouseleave', () => {
+                        marker.style.transform = 'translateY(0) scale(1) rotateY(0deg)';
+                    });
+                });
+
+                const cyberTexts = document.querySelectorAll('.cyber-date, .cyber-title');
+                cyberTexts.forEach(text => {
+                    text.addEventListener('mouseenter', () => {
+                        text.style.animation = 'textFlicker 0.1s infinite';
+                    });
+                    
+                    text.addEventListener('mouseleave', () => {
+                        text.style.animation = 'textFlicker 2s infinite';
+                    });
+                });
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 1) {
+                    this.currentSlide--;
+                    this.updateSlide();
+                }
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides) {
+                    this.currentSlide++;
+                    this.updateSlide();
+                }
+            }
+
+            goToSlide(slideNumber) {
+                if (slideNumber >= 1 && slideNumber <= this.totalSlides) {
+                    this.currentSlide = slideNumber;
+                    this.updateSlide();
+                }
+            }
+
+            updateSlide() {
+                const translateX = -(this.currentSlide - 1) * 100;
+                this.slidesContainer.style.transform = `translateX(${translateX}vw)`;
+                this.animateElements();
+            }
+
+            animateElements() {
+                const currentSlide = document.querySelector(`[data-slide="${this.currentSlide}"]`);
+                if (currentSlide) {
+                    const elements = currentSlide.querySelectorAll('.fade-in:not(.visible)');
+                    elements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, index * 200);
+                    });
+                }
+            }
+
+            hideUI() {
+                document.body.classList.add('hide-ui');
+            }
+
+            showUI() {
+                document.body.classList.remove('hide-ui');
+            }
+
+            toggleUI() {
+                document.body.classList.toggle('hide-ui');
+            }
+        }
+
+        // Инициализация
+        const presentation = new PulsarPresentation();
+
+        // Дополнительные эффекты
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes markerPulse {
+                    0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+                    70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+                }
+                
+                @keyframes textFlicker {
+                    0%, 100% { opacity: 1; }
+                    90% { opacity: 1; }
+                    95% { opacity: 0.8; }
+                    97% { opacity: 1; }
+                    99% { opacity: 0.6; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
